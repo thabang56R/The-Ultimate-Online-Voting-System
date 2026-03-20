@@ -1,6 +1,6 @@
 # SecureVote AI
 
-> An enterprise-style online voting platform built with the MERN stack and an ML-powered fraud detection microservice.
+
 
 SecureVote AI combines secure digital voting, role-based election management, audit logging, anomaly detection, voter risk scoring, and an admin security dashboard to simulate how modern, high-integrity election systems can detect suspicious behavior **without allowing AI to decide vote outcomes**.
 

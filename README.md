@@ -3,6 +3,7 @@
 
 # 🗳️ Ultimate Online Voting System (with ML Fraud Detection)
 
+![CI](https://github.com/thabang56R/The-Ultimate-Online-Voting-System/actions/workflows/ci.yml/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Node](https://img.shields.io/badge/Node.js-18+-brightgreen)
 ![React](https://img.shields.io/badge/Frontend-React-blue)

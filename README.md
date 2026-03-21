@@ -82,12 +82,19 @@ Admin can review flagged activity
 🏗️ System Architecture
 
 Frontend (React)
+
         ↓
+        
 Backend API (Node.js / Express)
+
         ↓
+        
 ML Microservice (FastAPI)
+
         ↓
+        
 MongoDB Database
+
 
 ---
 

@@ -179,9 +179,14 @@ Take administrative action
 ## 📁 Project Structure
 
 ├── frontend/        # React frontend
+
 ├── backend/         # Node.js API
-├── ml-service/      # Python ML microservice
+
+├── ml-service/      # Python ML 
+microservice
+
 ├── .github/         # CI/CD workflows
+
 
 ---
 

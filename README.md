@@ -63,19 +63,19 @@ The platform includes a **Python-based ML microservice** that evaluates voting b
 - Time intervals between votes
 - Device/session behavior
 
-
+---
 
 ⚡ How It Works
 
-User casts a vote
+1. User casts a vote
 
-Backend sends data to ML service
+2. Backend sends data to ML service
 
-ML model evaluates risk
+3. ML model evaluates risk
 
-Suspicious votes are flagged
+4. Suspicious votes are flagged
 
-Admin can review flagged activity
+5  Admin can review flagged activity
 
 ---
 

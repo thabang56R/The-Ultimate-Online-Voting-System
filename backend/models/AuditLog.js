@@ -5,6 +5,7 @@ const auditLogSchema = new mongoose.Schema(
     actorId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      default: null,
     },
     action: {
       type: String,
@@ -14,7 +15,10 @@ const auditLogSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    entityId: String,
+    entityId: {
+      type: mongoose.Schema.Types.ObjectId,
+      default: null,
+    },
     metadata: {
       type: Object,
       default: {},
@@ -23,7 +27,4 @@ const auditLogSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const AuditLog =
-  mongoose.models.AuditLog || mongoose.model("AuditLog", auditLogSchema);
-
-export default AuditLog;
+export default mongoose.model("AuditLog", auditLogSchema);

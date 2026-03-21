@@ -5,55 +5,41 @@ const riskEventSchema = new mongoose.Schema(
     voterId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
     electionId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Election",
+      required: true,
+    },
+    voteId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Vote",
+      required: true,
     },
     eventType: {
       type: String,
-      enum: ["login", "vote_attempt", "vote_submit"],
+      default: "vote_risk_detected",
+    },
+    riskLevel: {
+      type: String,
+      enum: ["low", "medium", "high"],
       required: true,
-    },
-    ipHash: String,
-    deviceHash: String,
-    userAgent: String,
-    geoRegion: String,
-    failedLoginsLast24h: {
-      type: Number,
-      default: 0,
-    },
-    accountAgeMinutes: {
-      type: Number,
-      default: 0,
-    },
-    timeToVoteAfterLoginSeconds: {
-      type: Number,
-      default: 0,
-    },
-    ipUsedByMultipleAccounts: {
-      type: Boolean,
-      default: false,
-    },
-    isNewDevice: {
-      type: Boolean,
-      default: false,
     },
     riskScore: {
       type: Number,
       default: 0,
     },
-    riskLevel: {
-      type: String,
-      enum: ["low", "medium", "high"],
-      default: "low",
+    flags: {
+      type: [String],
+      default: [],
     },
-    flags: [String],
+    metadata: {
+      type: Object,
+      default: {},
+    },
   },
   { timestamps: true }
 );
 
-const RiskEvent =
-  mongoose.models.RiskEvent || mongoose.model("RiskEvent", riskEventSchema);
-
-export default RiskEvent;
+export default mongoose.model("RiskEvent", riskEventSchema);

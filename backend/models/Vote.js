@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const voteSchema = new mongoose.Schema(
   {
+    voterId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     electionId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Election",
@@ -12,10 +17,10 @@ const voteSchema = new mongoose.Schema(
       ref: "Candidate",
       required: true,
     },
-    voterId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+    voteStatus: {
+      type: String,
+      enum: ["accepted", "challenged", "flagged", "approved", "rejected"],
+      default: "accepted",
     },
     riskScore: {
       type: Number,
@@ -26,33 +31,18 @@ const voteSchema = new mongoose.Schema(
       enum: ["low", "medium", "high"],
       default: "low",
     },
-    voteStatus: {
-      type: String,
-      enum: ["accepted", "challenged", "flagged", "approved", "rejected"],
-      default: "accepted",
+    flags: {
+      type: [String],
+      default: [],
     },
-    reviewNotes: {
-      type: String,
-      default: "",
+    metadata: {
+      type: Object,
+      default: {},
     },
-    reviewedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      default: null,
-    },
-    reviewedAt: {
-      type: Date,
-      default: null,
-    },
-    ipHash: String,
-    deviceHash: String,
-    userAgent: String,
   },
   { timestamps: true }
 );
 
-voteSchema.index({ electionId: 1, voterId: 1 }, { unique: true });
+voteSchema.index({ voterId: 1, electionId: 1 }, { unique: true });
 
-const Vote = mongoose.models.Vote || mongoose.model("Vote", voteSchema);
-
-export default Vote;
+export default mongoose.model("Vote", voteSchema);

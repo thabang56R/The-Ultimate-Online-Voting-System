@@ -10,25 +10,11 @@ export const castVote = async (req, res) => {
     const { electionId, candidateId } = req.body;
     const voterId = req.user._id;
 
-    if (!electionId || !candidateId) {
-      return res.status(400).json({
-        success: false,
-        message: "electionId and candidateId are required",
-      });
-    }
-
     const election = await Election.findById(electionId);
     if (!election) {
       return res.status(404).json({
         success: false,
         message: "Election not found",
-      });
-    }
-
-    if (election.status !== "active") {
-      return res.status(400).json({
-        success: false,
-        message: "Election is not active",
       });
     }
 
@@ -40,14 +26,7 @@ export const castVote = async (req, res) => {
       });
     }
 
-    if (candidate.electionId.toString() !== electionId) {
-      return res.status(400).json({
-        success: false,
-        message: "Candidate does not belong to this election",
-      });
-    }
-
-    const existingVote = await Vote.findOne({ electionId, voterId });
+    const existingVote = await Vote.findOne({ voterId, electionId });
     if (existingVote) {
       return res.status(400).json({
         success: false,
@@ -55,78 +34,80 @@ export const castVote = async (req, res) => {
       });
     }
 
-    const featurePayload = {
-      failed_logins_last_24h: req.riskContext.failedLoginsLast24h || 0,
-      account_age_minutes: req.riskContext.accountAgeMinutes || 0,
-      time_to_vote_after_login_seconds:
-        req.riskContext.timeToVoteAfterLoginSeconds || 0,
-      ip_used_by_multiple_accounts:
-        req.riskContext.ipUsedByMultipleAccounts ? 1 : 0,
-      is_new_device: req.riskContext.isNewDevice ? 1 : 0,
-      session_actions_count: req.riskContext.sessionActionsCount || 0,
-      votes_from_same_ip_last_hour: req.riskContext.votesFromSameIpLastHour || 0,
-    };
+    const voteStartTime =
+      req.body.voteStartTime || req.headers["x-vote-start-time"] || new Date();
 
-    const mlResult = await scoreVotingRisk(featurePayload);
-
-    let voteStatus = "accepted";
-    if (mlResult.risk_level === "medium") voteStatus = "challenged";
-    if (mlResult.risk_level === "high") voteStatus = "flagged";
+    const riskResult = await scoreVotingRisk({
+      user: req.user,
+      req,
+      electionId,
+      voteStartTime,
+    });
 
     const vote = await Vote.create({
+      voterId,
       electionId,
       candidateId,
-      voterId,
-      riskScore: mlResult.risk_score,
-      riskLevel: mlResult.risk_level,
-      voteStatus,
-      ipHash: req.riskContext.ipHash,
-      deviceHash: req.riskContext.deviceHash,
-      userAgent: req.headers["user-agent"],
+      voteStatus: riskResult.voteStatus,
+      riskScore: riskResult.riskScore,
+      riskLevel: riskResult.riskLevel,
+      flags: riskResult.flags,
+      metadata: {
+        ipAddress: req.ip || null,
+        userAgent: req.headers["user-agent"] || null,
+        deviceFingerprint: req.headers["x-device-fingerprint"] || null,
+        mlPrediction: riskResult.modelPrediction,
+        riskFeatures: riskResult.features,
+      },
     });
 
-    await RiskEvent.create({
-      voterId,
-      electionId,
-      eventType: "vote_submit",
-      ipHash: req.riskContext.ipHash,
-      deviceHash: req.riskContext.deviceHash,
-      userAgent: req.headers["user-agent"],
-      geoRegion: req.riskContext.geoRegion,
-      failedLoginsLast24h: req.riskContext.failedLoginsLast24h || 0,
-      accountAgeMinutes: req.riskContext.accountAgeMinutes || 0,
-      timeToVoteAfterLoginSeconds:
-        req.riskContext.timeToVoteAfterLoginSeconds || 0,
-      ipUsedByMultipleAccounts:
-        req.riskContext.ipUsedByMultipleAccounts || false,
-      isNewDevice: req.riskContext.isNewDevice || false,
-      riskScore: mlResult.risk_score,
-      riskLevel: mlResult.risk_level,
-      flags: mlResult.flags,
-    });
+    if (riskResult.riskLevel !== "low") {
+      await RiskEvent.create({
+        voterId,
+        electionId,
+        voteId: vote._id,
+        riskLevel: riskResult.riskLevel,
+        riskScore: riskResult.riskScore,
+        flags: riskResult.flags,
+        eventType: "vote_risk_detected",
+        metadata: {
+          modelPrediction: riskResult.modelPrediction,
+          features: riskResult.features,
+        },
+      });
+    }
 
     await AuditLog.create({
       actorId: voterId,
       action: "CAST_VOTE",
       entityType: "Vote",
-      entityId: vote._id.toString(),
+      entityId: vote._id,
       metadata: {
         electionId,
         candidateId,
-        riskLevel: mlResult.risk_level,
-        riskScore: mlResult.risk_score,
-        flags: mlResult.flags,
+        voteStatus: vote.voteStatus,
+        riskLevel: vote.riskLevel,
+        riskScore: vote.riskScore,
+        flags: vote.flags,
       },
     });
 
     return res.status(201).json({
       success: true,
-      message: "Vote processed successfully",
-      voteStatus,
-      mlResult,
-      vote,
+      message:
+        vote.voteStatus === "accepted"
+          ? "Vote submitted successfully"
+          : "Vote submitted and marked for review",
+      vote: {
+        _id: vote._id,
+        voteStatus: vote.voteStatus,
+        riskLevel: vote.riskLevel,
+        riskScore: vote.riskScore,
+        flags: vote.flags,
+      },
     });
   } catch (error) {
+    console.error("Cast vote error:", error);
     return res.status(500).json({
       success: false,
       message: "Failed to cast vote",

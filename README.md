@@ -63,27 +63,7 @@ The platform includes a **Python-based ML microservice** that evaluates voting b
 - Time intervals between votes
 - Device/session behavior
 
-### 📈 Example Prediction
----
 
-
-```json
-POST /predict
-
-Input:
-{
-  "vote_time_interval": 2,
-  "ip_requests": 10,
-  "device_switch": 1
-}
-
-Output:
-{
-  "risk_score": 0.87,
-  "is_fraud": true
-}
-
----
 
 ⚡ How It Works
 
@@ -259,3 +239,24 @@ GitHub: https://github.com/thabang56R
 
 This project is licensed under the MIT License.
 
+### 📈 Example Prediction
+---
+
+
+```json
+POST /predict
+
+Input:
+{
+  "vote_time_interval": 2,
+  "ip_requests": 10,
+  "device_switch": 1
+}
+
+Output:
+{
+  "risk_score": 0.87,
+  "is_fraud": true
+}
+
+---

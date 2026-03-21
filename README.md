@@ -132,7 +132,7 @@ Pandas / NumPy
 
 GitHub Actions (CI/CD)
 
-Render (Deployment)
+Render & Vercel (Deployment)
 
 ---
 
@@ -150,29 +150,29 @@ Role-based access (Admin/User)
 
 ## 🗳️ Voting System
 
-Create and manage elections
+- Create and manage elections
 
-Cast votes securely
+- Cast votes securely
 
-Prevent duplicate voting
+- Prevent duplicate voting
 
 ---
 ## 🚨 Fraud Detection
 
-Real-time vote risk scoring
+- Real-time vote risk scoring
 
-Suspicious vote flagging
+- Suspicious vote flagging
 
-Behavioral anomaly detection
+- Behavioral anomaly detection
 
 ---
 ## 🧾 Admin Dashboard
 
-Monitor all votes
+- Monitor all votes
 
-Review flagged votes
+- Review flagged votes
 
-Take administrative action
+- Take administrative action
 
 ---
 

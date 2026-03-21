@@ -65,7 +65,7 @@ The platform includes a **Python-based ML microservice** that evaluates voting b
 
 ---
 
-⚡ How It Works
+## ⚡ How It Works
 
 1. User casts a vote
 
@@ -79,7 +79,7 @@ The platform includes a **Python-based ML microservice** that evaluates voting b
 
 ---
 
-🏗️ System Architecture
+## 🏗️ System Architecture
 
 Frontend (React)
 
@@ -98,9 +98,9 @@ MongoDB Database
 
 ---
 
-🛠️ Tech Stack
+## 🛠️ Tech Stack
 
-💻 Frontend
+# 💻 Frontend
 
 React + Vite
 
@@ -108,7 +108,7 @@ Tailwind CSS
 
 Axios
 
-🔧 Backend
+# 🔧 Backend
 
 Node.js
 
@@ -118,7 +118,7 @@ MongoDB (Mongoose)
 
 JWT Authentication
 
-🤖 Machine Learning
+# 🤖 Machine Learning
 
 Python
 
@@ -128,7 +128,7 @@ scikit-learn
 
 Pandas / NumPy
 
-⚙️ DevOps
+# ⚙️ DevOps
 
 GitHub Actions (CI/CD)
 
@@ -136,9 +136,9 @@ Render (Deployment)
 
 ---
 
-🔐 Core Features
+## 🔐 Core Features
 
-👤 Authentication & Security
+# 👤 Authentication & Security
 
 User registration & login
 
@@ -148,7 +148,7 @@ Role-based access (Admin/User)
 
 ---
 
-🗳️ Voting System
+## 🗳️ Voting System
 
 Create and manage elections
 
@@ -157,7 +157,7 @@ Cast votes securely
 Prevent duplicate voting
 
 ---
-🚨 Fraud Detection
+## 🚨 Fraud Detection
 
 Real-time vote risk scoring
 
@@ -166,7 +166,7 @@ Suspicious vote flagging
 Behavioral anomaly detection
 
 ---
-🧾 Admin Dashboard
+## 🧾 Admin Dashboard
 
 Monitor all votes
 
@@ -176,7 +176,7 @@ Take administrative action
 
 ---
 
-📁 Project Structure
+## 📁 Project Structure
 
 ├── frontend/        # React frontend
 ├── backend/         # Node.js API
@@ -185,7 +185,7 @@ Take administrative action
 
 ---
 
-⚡ Getting Started
+## ⚡ Getting Started
 
 1️⃣ Clone the Repository
 
@@ -212,7 +212,7 @@ uvicorn main:app --reload
 
 ---
 
-📌 Future Improvements
+## 📌 Future Improvements
 
 - Real-world dataset integration
 - Advanced anomaly detection (Isolation Forest / Neural Networks)
@@ -222,7 +222,7 @@ uvicorn main:app --reload
 
 ---
 
-🎯 Why This Project Stands Out
+## 🎯 Why This Project Stands Out
 
 This project demonstrates:
 
@@ -234,7 +234,7 @@ This project demonstrates:
 
 ---
 
-👨‍💻 Author
+## 👨‍💻 Author
 
 Thabang Rakeng
 

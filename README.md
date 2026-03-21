@@ -232,9 +232,13 @@ uvicorn main:app --reload
 This project demonstrates:
 
 ✅ Full-stack engineering skills
+
 ✅ Microservice architecture understanding
+
 ✅ Real-world problem solving (fraud detection)
+
 ✅ Integration of ML into production systems
+
 ✅ Scalable and modular design
 
 ---

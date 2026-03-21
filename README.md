@@ -140,11 +140,11 @@ Render & Vercel (Deployment)
 
 # 👤 Authentication & Security
 
-User registration & login
+- User registration & login
 
-JWT-based authentication
+- JWT-based authentication
 
-Role-based access (Admin/User)
+- Role-based access (Admin/User)
 
 ---
 

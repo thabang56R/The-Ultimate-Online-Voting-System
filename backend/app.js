@@ -9,23 +9,35 @@ import electionRoutes from "./routes/electionRoutes.js";
 import candidateRoutes from "./routes/candidateRoutes.js";
 import voteRoutes from "./routes/voteRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
-
-import { notFound } from "./middlewares/notFoundMiddleware.js";
-import { errorHandler } from "./middlewares/errorMiddleware.js";
-
 import testRoutes from "./routes/testRoutes.js";
 import resultRoutes from "./routes/resultRoutes.js";
 import auditLogRoutes from "./routes/auditLogRoutes.js";
 
-
+import { notFound } from "./middlewares/notFoundMiddleware.js";
+import { errorHandler } from "./middlewares/errorMiddleware.js";
 
 const app = express();
 
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://online-voting-system.vercel.app" 
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true
+}));
+
 app.use(helmet());
-app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
-
 
 app.use(
   rateLimit({
@@ -35,6 +47,7 @@ app.use(
   })
 );
 
+// ✅ Health route
 app.get("/api/health", (req, res) => {
   res.status(200).json({
     success: true,
@@ -42,6 +55,7 @@ app.get("/api/health", (req, res) => {
   });
 });
 
+// ✅ Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/elections", electionRoutes);
 app.use("/api/candidates", candidateRoutes);
@@ -51,6 +65,7 @@ app.use("/api/test", testRoutes);
 app.use("/api/results", resultRoutes);
 app.use("/api/admin/audit-logs", auditLogRoutes);
 
+// ✅ Middlewares
 app.use(notFound);
 app.use(errorHandler);
 

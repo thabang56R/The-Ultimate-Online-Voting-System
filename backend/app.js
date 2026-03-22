@@ -21,7 +21,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://online-voting-system.vercel.app" 
+  "https://the-ultimate-online-voting-system.vercel.app/" 
 ];
 
 app.use(cors({

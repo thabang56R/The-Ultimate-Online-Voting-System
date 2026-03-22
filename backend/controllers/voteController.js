@@ -3,12 +3,27 @@ import RiskEvent from "../models/RiskEvent.js";
 import AuditLog from "../models/AuditLog.js";
 import Election from "../models/Election.js";
 import Candidate from "../models/Candidate.js";
+import User from "../models/User.js";
 import { scoreVotingRisk } from "../services/riskScoringService.js";
 
 export const castVote = async (req, res) => {
   try {
     const { electionId, candidateId } = req.body;
-    const voterId = req.user._id;
+
+    let currentUser = req.user;
+
+    if (!currentUser && req.headers["x-user-id"]) {
+      currentUser = await User.findById(req.headers["x-user-id"]);
+    }
+
+    if (!currentUser) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
+    const voterId = currentUser._id;
 
     const election = await Election.findById(electionId);
     if (!election) {
@@ -38,7 +53,7 @@ export const castVote = async (req, res) => {
       req.body.voteStartTime || req.headers["x-vote-start-time"] || new Date();
 
     const riskResult = await scoreVotingRisk({
-      user: req.user,
+      user: currentUser,
       req,
       electionId,
       voteStartTime,
@@ -115,5 +130,4 @@ export const castVote = async (req, res) => {
     });
   }
 };
-
 

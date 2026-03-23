@@ -177,7 +177,7 @@ POST /predict
 ## 📁 Project Structure
 
 ```
-client/        → React frontend
+ frontend/     → React frontend
 backend/       → Node.js API
 ml-service/    → Python ML microservice
 .github/       → CI/CD workflows
@@ -202,7 +202,7 @@ npm run dev
 
 ### Frontend
 ```
-cd client
+cd frontend
 npm install
 npm run dev
 ```

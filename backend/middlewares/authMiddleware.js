@@ -30,3 +30,23 @@ export const protect = async (req, res, next) => {
     next(error);
   }
 };
+
+export const adminOnly = (req, res, next) => {
+  try {
+    if (!req.user) {
+      res.status(401);
+      throw new Error("Not authorized");
+    }
+
+    const userRole = String(req.user.role || "").toLowerCase();
+
+    if (userRole !== "admin") {
+      res.status(403);
+      throw new Error("Access denied. Admins only");
+    }
+
+    next();
+  } catch (error) {
+    next(error);
+  }
+};

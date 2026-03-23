@@ -22,22 +22,41 @@ export async function scoreVotingRisk({ user, req, electionId, voteStartTime }) 
 
   const prediction = await predictVotingRisk(mlPayload);
 
+  const riskLevel = prediction?.risk_level ?? "low";
+  const riskScore = Number(prediction?.risk_score ?? 0);
+  const flags = Array.isArray(prediction?.flags) ? prediction.flags : [];
+  const topReasons = Array.isArray(prediction?.top_reasons)
+    ? prediction.top_reasons
+    : [];
+  const explanation = prediction?.explanation || "";
+  const reviewRecommendation = prediction?.review_recommendation || "allow";
+  const modelPrediction = prediction?.prediction ?? 0;
+  const modelVersion = prediction?.model_version || "fraud_model_unknown";
+  const bestModelName = prediction?.best_model_name || "unknown";
+  const thresholds = prediction?.thresholds || {};
+
   let voteStatus = "accepted";
 
-  if (prediction.risk_level === "medium") {
+  if (riskLevel === "medium") {
     voteStatus = "challenged";
   }
 
-  if (prediction.risk_level === "high") {
+  if (riskLevel === "high") {
     voteStatus = "flagged";
   }
 
   return {
     voteStatus,
-    riskScore: prediction.risk_score ?? 0,
-    riskLevel: prediction.risk_level ?? "low",
-    flags: prediction.flags || [],
-    modelPrediction: prediction.prediction ?? 0,
+    riskScore,
+    riskLevel,
+    flags,
+    modelPrediction,
     features: built,
+    explanation,
+    topReasons,
+    reviewRecommendation,
+    modelVersion,
+    bestModelName,
+    thresholds,
   };
 }

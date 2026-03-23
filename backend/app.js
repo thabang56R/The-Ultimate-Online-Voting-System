@@ -12,9 +12,12 @@ import adminRoutes from "./routes/adminRoutes.js";
 import testRoutes from "./routes/testRoutes.js";
 import resultRoutes from "./routes/resultRoutes.js";
 import auditLogRoutes from "./routes/auditLogRoutes.js";
+import fraudReviewRoutes from "./routes/fraudReviewRoutes.js";
 
 import { notFound } from "./middlewares/notFoundMiddleware.js";
 import { errorHandler } from "./middlewares/errorMiddleware.js";
+
+
 
 const app = express();
 
@@ -64,6 +67,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/test", testRoutes);
 app.use("/api/results", resultRoutes);
 app.use("/api/admin/audit-logs", auditLogRoutes);
+app.use("/api/fraud-reviews", fraudReviewRoutes);
 
 // ✅ Middlewares
 app.use(notFound);

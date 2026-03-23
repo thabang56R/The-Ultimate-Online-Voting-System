@@ -10,6 +10,13 @@ export const castVote = async (req, res) => {
   try {
     const { electionId, candidateId } = req.body;
 
+    if (!electionId || !candidateId) {
+      return res.status(400).json({
+        success: false,
+        message: "electionId and candidateId are required",
+      });
+    }
+
     let currentUser = req.user;
 
     if (!currentUser && req.headers["x-user-id"]) {
@@ -41,6 +48,17 @@ export const castVote = async (req, res) => {
       });
     }
 
+    // Ensure candidate belongs to this election
+    const candidateElectionId =
+      candidate.electionId?.toString?.() || candidate.election?.toString?.();
+
+    if (candidateElectionId && candidateElectionId !== electionId.toString()) {
+      return res.status(400).json({
+        success: false,
+        message: "Candidate does not belong to the selected election",
+      });
+    }
+
     const existingVote = await Vote.findOne({ voterId, electionId });
     if (existingVote) {
       return res.status(400).json({
@@ -49,9 +67,19 @@ export const castVote = async (req, res) => {
       });
     }
 
-    const voteStartTime =
-      req.body.voteStartTime || req.headers["x-vote-start-time"] || new Date();
+    // Accept either body or header value; normalize to a valid date
+    const rawVoteStartTime =
+      req.body.voteStartTime || req.headers["x-vote-start-time"];
 
+    let voteStartTime = new Date();
+    if (rawVoteStartTime) {
+      const parsed = new Date(rawVoteStartTime);
+      if (!Number.isNaN(parsed.getTime())) {
+        voteStartTime = parsed;
+      }
+    }
+
+    // Call the ML / risk scoring layer
     const riskResult = await scoreVotingRisk({
       user: currentUser,
       req,
@@ -59,35 +87,69 @@ export const castVote = async (req, res) => {
       voteStartTime,
     });
 
+    const normalizedRiskResult = {
+      voteStatus: riskResult?.voteStatus || "accepted",
+      riskScore: Number(riskResult?.riskScore ?? 0),
+      riskLevel: riskResult?.riskLevel || "low",
+      flags: Array.isArray(riskResult?.flags) ? riskResult.flags : [],
+      modelPrediction: riskResult?.modelPrediction ?? null,
+      features: riskResult?.features || {},
+      explanation: riskResult?.explanation || "",
+      topReasons: Array.isArray(riskResult?.topReasons)
+        ? riskResult.topReasons
+        : [],
+      reviewRecommendation: riskResult?.reviewRecommendation || "allow",
+      modelVersion: riskResult?.modelVersion || "fraud_model_unknown",
+      bestModelName: riskResult?.bestModelName || "unknown",
+      thresholds: riskResult?.thresholds || {},
+    };
+
     const vote = await Vote.create({
       voterId,
       electionId,
       candidateId,
-      voteStatus: riskResult.voteStatus,
-      riskScore: riskResult.riskScore,
-      riskLevel: riskResult.riskLevel,
-      flags: riskResult.flags,
+      voteStatus: normalizedRiskResult.voteStatus,
+      riskScore: normalizedRiskResult.riskScore,
+      riskLevel: normalizedRiskResult.riskLevel,
+      flags: normalizedRiskResult.flags,
       metadata: {
         ipAddress: req.ip || null,
         userAgent: req.headers["user-agent"] || null,
         deviceFingerprint: req.headers["x-device-fingerprint"] || null,
-        mlPrediction: riskResult.modelPrediction,
-        riskFeatures: riskResult.features,
+
+        // ML / risk info
+        mlPrediction: normalizedRiskResult.modelPrediction,
+        riskFeatures: normalizedRiskResult.features,
+        explanation: normalizedRiskResult.explanation,
+        topReasons: normalizedRiskResult.topReasons,
+        reviewRecommendation: normalizedRiskResult.reviewRecommendation,
+        modelVersion: normalizedRiskResult.modelVersion,
+        bestModelName: normalizedRiskResult.bestModelName,
+        thresholds: normalizedRiskResult.thresholds,
+
+        // Useful timing/debug context
+        voteStartTime,
+        voteSubmittedAt: new Date(),
       },
     });
 
-    if (riskResult.riskLevel !== "low") {
+    if (normalizedRiskResult.riskLevel !== "low") {
       await RiskEvent.create({
         voterId,
         electionId,
         voteId: vote._id,
-        riskLevel: riskResult.riskLevel,
-        riskScore: riskResult.riskScore,
-        flags: riskResult.flags,
+        riskLevel: normalizedRiskResult.riskLevel,
+        riskScore: normalizedRiskResult.riskScore,
+        flags: normalizedRiskResult.flags,
         eventType: "vote_risk_detected",
         metadata: {
-          modelPrediction: riskResult.modelPrediction,
-          features: riskResult.features,
+          modelPrediction: normalizedRiskResult.modelPrediction,
+          features: normalizedRiskResult.features,
+          explanation: normalizedRiskResult.explanation,
+          topReasons: normalizedRiskResult.topReasons,
+          reviewRecommendation: normalizedRiskResult.reviewRecommendation,
+          modelVersion: normalizedRiskResult.modelVersion,
+          bestModelName: normalizedRiskResult.bestModelName,
         },
       });
     }
@@ -104,6 +166,8 @@ export const castVote = async (req, res) => {
         riskLevel: vote.riskLevel,
         riskScore: vote.riskScore,
         flags: vote.flags,
+        reviewRecommendation: normalizedRiskResult.reviewRecommendation,
+        modelVersion: normalizedRiskResult.modelVersion,
       },
     });
 
@@ -119,6 +183,10 @@ export const castVote = async (req, res) => {
         riskLevel: vote.riskLevel,
         riskScore: vote.riskScore,
         flags: vote.flags,
+        explanation: normalizedRiskResult.explanation,
+        topReasons: normalizedRiskResult.topReasons,
+        reviewRecommendation: normalizedRiskResult.reviewRecommendation,
+        modelVersion: normalizedRiskResult.modelVersion,
       },
     });
   } catch (error) {

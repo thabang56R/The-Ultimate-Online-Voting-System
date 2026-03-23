@@ -15,6 +15,7 @@ const navItems = [
   { label: "Elections", path: "/admin/elections", icon: Vote },
   { label: "Candidates", path: "/admin/candidates", icon: Users },
   { label: "Review Queue", path: "/admin/review-queue", icon: ShieldAlert },
+  { label: "Fraud Reviews", path: "/admin/fraud-reviews", icon: ShieldAlert },
   { label: "Risk Events", path: "/admin/risk-events", icon: FileSearch },
   { label: "Audit Logs", path: "/admin/audit-logs", icon: ClipboardList },
 ];

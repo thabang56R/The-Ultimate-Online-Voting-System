@@ -19,6 +19,7 @@ import CandidatesPage from "./pages/CandidatesPage";
 import ReviewQueuePage from "./pages/ReviewQueuePage";
 import RiskEventsPage from "./pages/RiskEventsPage";
 import AuditLogsPage from "./pages/AuditLogsPage";
+import FraudReviewPage from "./pages/FraudReviewPage";
 
 export default function App() {
   return (
@@ -78,6 +79,14 @@ export default function App() {
             element={
               <AdminRoute>
                 <RiskEventsPage />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/fraud-reviews"
+            element={
+              <AdminRoute>
+                <FraudReviewPage />
               </AdminRoute>
             }
           />

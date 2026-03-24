@@ -15,7 +15,7 @@
 
 To build a secure, intelligent, and scalable online voting platform that combines modern full-stack engineering with machine learning–powered fraud detection.
 
-This project is designed to demonstrate how digital voting systems can be improved through:
+#### This project is designed to demonstrate how digital voting systems can be improved through:
 
 - 🔐 Secure authentication and vote integrity
 - 🤖 AI-assisted fraud and anomaly detection
@@ -265,7 +265,7 @@ Dataset → Preprocessing → Train/Test Split → Model Training → Evaluation
 
 ### 🔎 Why This Matters
 
-The ML model acts as a **decision-support system**, helping:
+> The ML model acts as a **decision-support system**, helping:
 - Detect fraud  
 - Improve election integrity  
 - Support admin decisions  
@@ -334,6 +334,7 @@ uvicorn main:app --reload
 ---
 
 🔐 Environment Variables
+
 Backend (.env)
 
 PORT=5000
@@ -412,7 +413,7 @@ MIT License
 
 - 🤖 AI/ML Enthusiast
 
-### 🔗 GitHub: https://github.com/thabang56R
+> #### 🔗 GitHub: https://github.com/thabang56R
 
 ---
 

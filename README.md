@@ -408,7 +408,7 @@ MIT License
 
 - 🎓 BSc Computer Science & Mathematics
 
-- 💻 Full Stack Developer (MERN + AI)
+- 💻 Full Stack Developer (MERN + .NET CORE)
 
 - 🤖 AI/ML Enthusiast
 

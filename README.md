@@ -34,15 +34,24 @@ Unlike traditional voting systems, this platform integrates **machine learning**
 
 ## 🔑 Demo Credentials
 
-Admin:
-Email: admin@example.com
+email: admin@securevote.demo
 
-Password: admin123
+      password: hashedPassword
+      
+    # role: admin
 
-Voter:
-Email: voter@example.com
 
-Password: voter123
+      email: officer@securevote.demo
+      
+      password: hashedPassword
+      
+     # role: election_officer
+
+      email: thabo@securevote.demo
+      
+      password: hashedPassword
+      
+     # role: voter
 
 ---
 
@@ -154,10 +163,13 @@ Dataset → Preprocessing → Train/Test Split → Model Training → Evaluation
 
 ### 📊 Example Results
 
-Accuracy: 0.91
-Precision: 0.89
-Recall: 0.84
-F1-Score: 0.86
+- Accuracy: 0.91
+
+- Precision: 0.89
+
+- Recall: 0.84
+
+- F1-Score: 0.86
 
 ---
 

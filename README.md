@@ -225,6 +225,7 @@ The ML model acts as a **decision-support system**, helping:
 ### 1️⃣ Clone Repo
 
 git clone https://github.com/thabang56R/The-Ultimate-Online-Voting-System.git
+
 cd The-Ultimate-Online-Voting-System
 
 ## 2️⃣ Backend Setup

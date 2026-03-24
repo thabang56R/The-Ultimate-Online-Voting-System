@@ -82,93 +82,53 @@ Fraud Detection Model
 ## 📁 Project Structure
 
 
+```bash
 The-Ultimate-Online-Voting-System/
-
 │
-├── 📦 backend/
-
+├── backend/
 │   ├── config/              # DB connection, environment config
-
 │   ├── controllers/         # Route logic (auth, votes, admin, etc.)
-
 │   ├── middlewares/         # Error handling, auth protection
-
 │   ├── models/              # Mongoose schemas
-
 │   ├── routes/              # API route definitions
-
-│   ├── services/            # Business logic & integrations (ML calls)
-
+│   ├── services/            # Business logic & ML integration
 │   ├── utils/               # Helper functions
-
 │   ├── app.js               # Express app setup
-
 │   ├── server.js            # Server entry point
-
 │   └── package.json
-
 │
-
-├── 🎨 frontend/
-
+├── frontend/
 │   ├── src/
-
 │   │   ├── components/      # Reusable UI components
-
-│   │   ├── pages/           # Application pages (Home, Dashboard, etc.)
-
+│   │   ├── pages/           # Screens (Home, Dashboard, etc.)
 │   │   ├── context/         # Global state (AuthContext)
-
 │   │   ├── services/        # API calls (Axios)
-
-│   │   ├── hooks/           # Custom React hooks
-
+│   │   ├── hooks/           # Custom hooks
 │   │   ├── App.jsx
-
 │   │   └── main.jsx
-
 │   ├── public/
-
 │   └── package.json
-
 │
-
-├── 🤖 ml-service/
-
+├── ml-service/
 │   ├── main.py              # FastAPI entry point
-
-│   ├── train_model.py       # Model training script
-
-│   ├── model.joblib         # Trained ML model
-
+│   ├── train_model.py       # Model training
+│   ├── model.joblib         # Saved model
 │   ├── requirements.txt
-
-│   └── utils/               # Feature processing helpers
-
+│   └── utils/               # Feature processing
 │
-
-├── 📄 docs/
-
-│   └── architecture.png     # System architecture diagram
-
+├── docs/
+│   └── architecture.png     # System diagram
 │
-
-├── ⚙️ .github/
-
+├── .github/
 │   └── workflows/
-
 │       └── ci.yml           # CI/CD pipeline
-
 │
-
 ├── .env.example             # Example environment variables
-
 ├── .gitignore
-
 ├── README.md
+└── package.json (optional)
 
-└── package.json (optional root config)
-
+```
 
 ---
 

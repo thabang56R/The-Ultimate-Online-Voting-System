@@ -85,11 +85,8 @@ Fraud Detection Model
 The-Ultimate-Online-Voting-System/
 
 │
-
 ├── 📦 backend/
-
 │   ├── config/              # DB connection, environment config
-
 │   ├── controllers/         # Route logic (auth, votes, admin, etc.)
 
 │   ├── middlewares/         # Error handling, auth protection

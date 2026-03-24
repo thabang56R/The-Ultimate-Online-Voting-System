@@ -29,8 +29,8 @@ Rather than replacing human judgment, the ML component acts as a decision-suppor
 ## 🚀 Live Demo
 
 🌐 Frontend: https://the-ultimate-online-voting-system.vercel.app/  
-🔗 Backend API: *(Add your Render link here)*  
-🤖 ML Service: *(Add your FastAPI link here if deployed)*  
+🔗 Backend API: https://the-ultimate-online-voting-system.onrender.com/api  
+🤖 ML Service: https://the-ultimate-online-voting-system-1.onrender.com  
 
 ---
 

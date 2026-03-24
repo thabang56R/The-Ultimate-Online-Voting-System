@@ -36,22 +36,21 @@ Unlike traditional voting systems, this platform integrates **machine learning**
 
 email: admin@securevote.demo
 
-      password: hashedPassword
-      
-    # role: admin
-
-
-      email: officer@securevote.demo
-      
-      password: hashedPassword
-      
-     # role: election_officer
-
-      email: thabo@securevote.demo
-      
-      password: hashedPassword
-      
-     # role: voter
+ password: hashedPassword
+ 
+ # role: admin
+ 
+ email: officer@securevote.demo
+ 
+ password: hashedPassword
+ 
+ # role: election_officer
+ 
+ email: thabo@securevote.demo
+ 
+ password: hashedPassword
+ 
+ # role: voter
 
 ---
 

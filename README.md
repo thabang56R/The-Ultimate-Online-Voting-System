@@ -402,9 +402,9 @@ MIT License
 
 ---
 
-👨‍💻 Author
+## 👨‍💻 Author
 
-Thabang Rakeng
+### Thabang Rakeng
 
 - 🎓 BSc Computer Science & Mathematics
 
@@ -412,13 +412,13 @@ Thabang Rakeng
 
 - 🤖 AI/ML Enthusiast
 
-🔗 GitHub: https://github.com/thabang56R
+### 🔗 GitHub: https://github.com/thabang56R
 
 ---
 
-⭐ Final Note
+## ⭐ Final Note
 
-This project demonstrates:
+### This project demonstrates:
 
 - Full-stack engineering (MERN)
 
@@ -428,4 +428,4 @@ This project demonstrates:
 
 - Real-world problem solving
 
-👉 Built to bridge the gap between software engineering and AI systems
+## 👉 Built to bridge the gap between software engineering and AI systems

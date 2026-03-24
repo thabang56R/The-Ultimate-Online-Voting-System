@@ -252,9 +252,13 @@ uvicorn main:app --reload
 Backend (.env)
 
 PORT=5000
+
 MONGO_URI=your_mongodb_uri
+
 JWT_SECRET=your_secret
+
 CLIENT_ORIGIN=http://localhost:5173
+
 ML_SERVICE_URL=http://localhost:8000
 
 ---

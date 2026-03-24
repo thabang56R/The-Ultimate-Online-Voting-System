@@ -231,19 +231,25 @@ cd The-Ultimate-Online-Voting-System
 ## 2️⃣ Backend Setup
 
 cd backend
+
 npm install
+
 npm run dev
 
 ## 3️⃣ Frontend Setup
 
 cd frontend
+
 npm install
+
 npm run dev
 
 ## 4️⃣ ML Service Setup
 
 cd ml-service
+
 pip install -r requirements.txt
+
 uvicorn main:app --reload
 
 ---

@@ -81,52 +81,68 @@ Fraud Detection Model
 
 ## 📁 Project Structure
 
-
 ```bash
 The-Ultimate-Online-Voting-System/
 │
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+│
 ├── backend/
-│   ├── config/              # DB connection, environment config
-│   ├── controllers/         # Route logic (auth, votes, admin, etc.)
-│   ├── middlewares/         # Error handling, auth protection
-│   ├── models/              # Mongoose schemas
-│   ├── routes/              # API route definitions
-│   ├── services/            # Business logic & ML integration
-│   ├── utils/               # Helper functions
-│   ├── app.js               # Express app setup
-│   ├── server.js            # Server entry point
+│   ├── config/
+│   ├── controllers/
+│   ├── middlewares/
+│   ├── models/
+│   ├── routes/
+│   ├── services/
+│   ├── utils/
+│   ├── app.js
+│   ├── server.js
 │   └── package.json
 │
 ├── frontend/
+│   ├── public/
 │   ├── src/
-│   │   ├── components/      # Reusable UI components
-│   │   ├── pages/           # Screens (Home, Dashboard, etc.)
-│   │   ├── context/         # Global state (AuthContext)
-│   │   ├── services/        # API calls (Axios)
-│   │   ├── hooks/           # Custom hooks
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── context/
+│   │   ├── services/
+│   │   ├── hooks/
 │   │   ├── App.jsx
 │   │   └── main.jsx
-│   ├── public/
 │   └── package.json
 │
 ├── ml-service/
-│   ├── main.py              # FastAPI entry point
-│   ├── train_model.py       # Model training
-│   ├── model.joblib         # Saved model
+│   ├── app/
+│   │   ├── main.py
+│   │   ├── model_loader.py
+│   │   ├── predictor.py
+│   │   └── schemas.py
+│   │
+│   ├── artifacts/
+│   │   ├── confusion_matrix.png
+│   │   ├── feature_importance.csv
+│   │   └── metrics.json
+│   │
+│   ├── data/
+│   │   └── voting_risk_dataset.csv
+│   │
+│   ├── models/
+│   │   ├── feature_columns.pkl
+│   │   ├── model_metadata.json
+│   │   └── risk_model.pkl
+│   │
+│   ├── scripts/
+│   │   ├── evaluate.py
+│   │   ├── prepare_data.py
+│   │   └── train.py
+│   │
 │   ├── requirements.txt
-│   └── utils/               # Feature processing
+│   └── train_model.py
 │
-├── docs/
-│   └── architecture.png     # System diagram
-│
-├── .github/
-│   └── workflows/
-│       └── ci.yml           # CI/CD pipeline
-│
-├── .env.example             # Example environment variables
 ├── .gitignore
-├── README.md
-└── package.json (optional)
+└── README.md
+
 
 ```
 

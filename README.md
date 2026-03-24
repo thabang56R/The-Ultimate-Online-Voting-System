@@ -1,4 +1,4 @@
-# 🗳️ The Ultimate Online Voting System (AI-Powered)
+# 🗳️ The Ultimate Online Voting System (With ML -Powered Fraud detection)
 
 ![Node.js](https://img.shields.io/badge/Backend-Node.js-green)
 ![React](https://img.shields.io/badge/Frontend-React-blue)
@@ -12,7 +12,7 @@
 
 ## 🌟 Vision
 
-This project aims to redefine digital voting by combining **secure full-stack engineering** with **AI-powered fraud detection**.
+This project aims to redefine digital voting by combining **secure full-stack engineering** with **ML-powered fraud detection**.
 
 The goal is to build a system that is:
 - 🔐 Secure  

@@ -60,14 +60,72 @@ password: hashedPassword
 A scalable **microservice-based architecture** combining MERN + ML.
 
 User (React Frontend)
+
 ↓
+
 Node.js Backend API
+
 ↓
+
 MongoDB Database
+
 ↓
+
 FastAPI ML Service
+
 ↓
+
 Fraud Detection Model
+
+---
+
+## 📁 Project Structure
+
+
+The-Ultimate-Online-Voting-System/
+│
+├── 📦 backend/
+│   ├── config/              # DB connection, environment config
+│   ├── controllers/         # Route logic (auth, votes, admin, etc.)
+│   ├── middlewares/         # Error handling, auth protection
+│   ├── models/              # Mongoose schemas
+│   ├── routes/              # API route definitions
+│   ├── services/            # Business logic & integrations (ML calls)
+│   ├── utils/               # Helper functions
+│   ├── app.js               # Express app setup
+│   ├── server.js            # Server entry point
+│   └── package.json
+│
+├── 🎨 frontend/
+│   ├── src/
+│   │   ├── components/      # Reusable UI components
+│   │   ├── pages/           # Application pages (Home, Dashboard, etc.)
+│   │   ├── context/         # Global state (AuthContext)
+│   │   ├── services/        # API calls (Axios)
+│   │   ├── hooks/           # Custom React hooks
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── public/
+│   └── package.json
+│
+├── 🤖 ml-service/
+│   ├── main.py              # FastAPI entry point
+│   ├── train_model.py       # Model training script
+│   ├── model.joblib         # Trained ML model
+│   ├── requirements.txt
+│   └── utils/               # Feature processing helpers
+│
+├── 📄 docs/
+│   └── architecture.png     # System architecture diagram
+│
+├── ⚙️ .github/
+│   └── workflows/
+│       └── ci.yml           # CI/CD pipeline
+│
+├── .env.example             # Example environment variables
+├── .gitignore
+├── README.md
+└── package.json (optional root config)
 
 ---
 

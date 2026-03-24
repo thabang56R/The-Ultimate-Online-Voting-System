@@ -13,15 +13,16 @@
 
 ## 🌟 Vision
 
-This project aims to redefine digital voting by combining **secure full-stack engineering** with **ML-powered fraud detection**.
+To build a secure, intelligent, and scalable online voting platform that combines modern full-stack engineering with machine learning–powered fraud detection.
 
-The goal is to build a system that is:
-- 🔐 Secure  
-- ⚡ Scalable  
-- 🤖 Intelligent  
-- 📊 Transparent  
+This project is designed to demonstrate how digital voting systems can be improved through:
 
-Unlike traditional voting systems, this platform integrates **machine learning** to detect suspicious voting behavior and assist administrators in making better decisions.
+- 🔐 Secure authentication and vote integrity
+- 🤖 AI-assisted fraud and anomaly detection
+- ⚖️ Transparent and auditable decision workflows
+- 👨‍⚖️ Human-in-the-loop review for suspicious activity
+
+Rather than replacing human judgment, the ML component acts as a decision-support layer that helps administrators detect risk, review flagged activity, and improve trust in online election systems.
 
 ---
 

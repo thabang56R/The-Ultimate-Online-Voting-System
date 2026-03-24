@@ -1,5 +1,6 @@
 # 🗳️ The Ultimate Online Voting System (With ML -Powered Fraud detection)
 
+[![CI](https://github.com/thabang56R/The-Ultimate-Online-Voting-System/actions/workflows/ci.yml/badge.svg)](https://github.com/thabang56R/The-Ultimate-Online-Voting-System/actions/workflows/ci.yml)
 ![Node.js](https://img.shields.io/badge/Backend-Node.js-green)
 ![React](https://img.shields.io/badge/Frontend-React-blue)
 ![MongoDB](https://img.shields.io/badge/Database-MongoDB-brightgreen)
